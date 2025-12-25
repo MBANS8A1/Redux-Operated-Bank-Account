@@ -47,3 +47,8 @@ store.dispatch({
 console.log(store.getState());
 store.dispatch({ type: "account/payLoan" });
 console.log(store.getState());
+
+function deposit() {}
+function withdraw() {}
+function requestLoan() {}
+function payLoan() {}
