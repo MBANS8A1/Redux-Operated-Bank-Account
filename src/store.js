@@ -12,7 +12,7 @@ const initialStateCustomer = {
   createdAt: "",
 };
 
-function reducer(state = initialStateAccount, action) {
+function accountReducer(state = initialStateAccount, action) {
   switch (action.type) {
     case "account/deposit":
       return { ...state, balance: state.balance + action.payload };
@@ -40,7 +40,9 @@ function reducer(state = initialStateAccount, action) {
   }
 }
 
-const store = createStore(reducer);
+function customerReducer(state = initialStateCustomer, action) {}
+
+const store = createStore(accountReducer);
 
 //an example deposit type dispatch
 // store.dispatch({ type: "account/deposit", payload: 500 });
@@ -83,4 +85,8 @@ function createCustomer(fullName, nationalID) {
     type: "customer/createCustomer",
     payload: { fullName, nationalID, createdAt: new Date().toISOString() },
   };
+}
+
+function updateName(fullName) {
+  return { type: "account/updateName", payload: fullName };
 }
