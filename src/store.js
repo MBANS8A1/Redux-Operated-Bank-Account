@@ -8,7 +8,7 @@ const initialStateAccount = {
 
 const initialStateCustomer = {};
 
-function reducer(state = initialState, action) {
+function reducer(state = initialStateAccount, action) {
   switch (action.type) {
     case "account/deposit":
       return { ...state, balance: state.balance + action.payload };
