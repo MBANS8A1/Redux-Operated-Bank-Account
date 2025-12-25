@@ -40,7 +40,22 @@ function accountReducer(state = initialStateAccount, action) {
   }
 }
 
-function customerReducer(state = initialStateCustomer, action) {}
+function customerReducer(state = initialStateCustomer, action) {
+  switch (action.type) {
+    case "customer/createCustomer":
+      return {
+        ...state,
+        fullName: action.payload.fullName,
+        nationalID: action.payload.nationalID,
+        createdAt: action.payload.createdAt,
+      };
+    case "customer/updateName":
+      return { ...state, fullName: action.payload };
+
+    default:
+      return state;
+  }
+}
 
 const store = createStore(accountReducer);
 
@@ -88,5 +103,5 @@ function createCustomer(fullName, nationalID) {
 }
 
 function updateName(fullName) {
-  return { type: "account/updateName", payload: fullName };
+  return { type: "customer/updateName", payload: fullName };
 }
