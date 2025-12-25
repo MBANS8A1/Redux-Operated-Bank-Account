@@ -1,10 +1,12 @@
 import { createStore } from "redux";
 
-const initialState = {
+const initialStateAccount = {
   balance: 0,
   loan: 0,
   loanPurpose: "",
 };
+
+const initialStateCustomer = {};
 
 function reducer(state = initialState, action) {
   switch (action.type) {
