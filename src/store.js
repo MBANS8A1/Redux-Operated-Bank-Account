@@ -6,7 +6,11 @@ const initialStateAccount = {
   loanPurpose: "",
 };
 
-const initialStateCustomer = {};
+const initialStateCustomer = {
+  fullName: "",
+  nationalID: "",
+  createdAt: "",
+};
 
 function reducer(state = initialStateAccount, action) {
   switch (action.type) {
@@ -73,3 +77,10 @@ store.dispatch(requestLoan(1000, "Buy a cheap car"));
 console.log(store.getState());
 store.dispatch(payLoan());
 console.log(store.getState());
+
+function createCustomer(fullName, nationalID) {
+  return {
+    type: "customer/createCustomer",
+    payload: { fullName, nationalID, createdAt: new Date().toISOString() },
+  };
+}
