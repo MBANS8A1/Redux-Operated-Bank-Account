@@ -10,6 +10,8 @@ function Customer() {
   function handleClick() {
     if (!fullName || !nationalId) return;
     dispatch(createCustomer(fullName, nationalId));
+    setFullName(""); //clean fullName input
+    setNationalId(""); //clean NationalId input
   }
 
   return (
