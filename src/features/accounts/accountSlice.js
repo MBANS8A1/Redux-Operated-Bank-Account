@@ -3,13 +3,18 @@ const initialStateAccount = {
   balance: 0,
   loan: 0,
   loanPurpose: "",
+  isLoading: false,
 };
 
 //Reducer for accounts
 export default function accountReducer(state = initialStateAccount, action) {
   switch (action.type) {
     case "account/deposit":
-      return { ...state, balance: state.balance + action.payload };
+      return {
+        ...state,
+        balance: state.balance + action.payload,
+        isLoading: false,
+      };
     case "account/withdraw":
       return { ...state, balance: state.balance - action.payload };
     case "account/requestLoan":
@@ -28,6 +33,8 @@ export default function accountReducer(state = initialStateAccount, action) {
         loanPurpose: "",
         balance: state.balance - state.loan,
       };
+    case "account/convertingCurrency":
+      return { ...state, isLoading: true };
 
     default:
       return state;
@@ -39,6 +46,7 @@ export function deposit(amount, currency) {
   if (currency === "GBP") return { type: "account/deposit", payload: amount };
 
   return async function (dispatch, getState) {
+    dispatch({ type: "account/convertingCurrency" });
     const res = await fetch(
       `https://api.frankfurter.dev/v1/latest?base=${currency}&symbols=GBP`
     );
