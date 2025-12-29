@@ -51,7 +51,7 @@ export function deposit(amount, currency) {
       `https://api.frankfurter.dev/v1/latest?base=${currency}&symbols=GBP`
     );
     const data = await res.json();
-    const convertedAmount = (amount * data.rates["GBP"]).toFixed(2);
+    const convertedAmount = Number((amount * data.rates["GBP"]).toFixed(2));
     dispatch({ type: "account/deposit", payload: convertedAmount });
   };
 }
