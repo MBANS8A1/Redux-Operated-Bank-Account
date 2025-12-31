@@ -40,7 +40,21 @@ const accountSlice = createSlice({
 });
 
 export default accountSlice.reducer;
-export const { deposit, withdraw, requestLoan, payLoan } = accountSlice.actions;
+export const { withdraw, requestLoan, payLoan } = accountSlice.actions;
+
+export function deposit(amount, currency) {
+  if (currency === "GBP") return { type: "account/deposit", payload: amount };
+
+  return async function (dispatch, getState) {
+    dispatch({ type: "account/convertingCurrency" });
+    const res = await fetch(
+      `https://api.frankfurter.dev/v1/latest?base=${currency}&symbols=GBP`
+    );
+    const data = await res.json();
+    const convertedAmount = Number((amount * data.rates["GBP"]).toFixed(2));
+    dispatch({ type: "account/deposit", payload: convertedAmount });
+  };
+}
 
 console.log(requestLoan(2000, "Buy notebook"));
 
